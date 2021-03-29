@@ -18,6 +18,6 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "semi": "warn"
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }

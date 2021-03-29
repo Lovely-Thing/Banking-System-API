@@ -1,5 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	OneToMany,
+} from 'typeorm';
 import { Min } from 'class-validator';
+import { Customer } from './Customer';
+import { Transaction } from './Transaction';
 
 export enum accountTypes {
 	SAVINGS = 'savings',
@@ -23,6 +31,12 @@ export class Account {
 	@Column('double precision')
 	@Min(0)
 	balance!: number;
+
+	// @ManyToOne(() => Customer, customer => customer.accounts)
+	// customer!: Customer;
+
+	@OneToMany(() => Transaction, account => account.transactionId)
+	transactions!: Transaction[];
 
 	//TODO: Link To Transactions and Customers
 }

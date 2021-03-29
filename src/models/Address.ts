@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 @Entity()
 export class Address {
-	@PrimaryColumn('varchar', { length: 6, nullable: false })
+	@Column('varchar', { length: 6, nullable: false })
 	zipCode!: string;
 
 	@Column('varchar')

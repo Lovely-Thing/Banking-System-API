@@ -3,8 +3,10 @@ import {
 	PrimaryGeneratedColumn,
 	Column,
 	CreateDateColumn,
+	ManyToOne,
 } from 'typeorm';
 import { Min } from 'class-validator';
+import { Account } from './Account';
 
 @Entity()
 export class Transaction {
@@ -17,6 +19,9 @@ export class Transaction {
 
 	@CreateDateColumn({ type: 'timestamp', default: () => 'LOCALTIMESTAMP' })
 	date!: string;
+
+	@ManyToOne(() => Account, transaction => transaction.accountNumber)
+	account!: Account;
 }
 
 //TODO: Relate Customer
