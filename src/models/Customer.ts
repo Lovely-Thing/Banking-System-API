@@ -44,7 +44,7 @@ export class Customer {
 		lastName: string,
 		phone: string,
 		age: string,
-		email?: string,
+		email?: string
 	) {
 		this.firstName = firstName;
 		this.lastName = lastName;
