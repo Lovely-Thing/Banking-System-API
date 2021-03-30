@@ -13,12 +13,28 @@ This is a project which demonstrates Homomorphic Encryption.
 
 - Open the project and fire up the terminal and then enter the following command.
  
-    ```yarn install```
+    ```
+    yarn run clean-install
+    ```
 
-- Setting Up the Database for the first time
-  
-  - Open PGAdmin and create a database called ```bankingDB``` 
-  ```psql
-    psql bankingDB -U USERNAME
+
+- Create a ```.env``` file in the project and add the following details
+  ```dotenv
+  PORT = 8000
+  URI = postgres://zuvzyhnvuaalio:c041c3f990aff74e3eee18dbd0391d8dc2695803243e1e0b79bffd1e14712342@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/ddr537u7rgau4l
   ```
-   
+ 
+## Taking Advantage of Linting
+- Open VSCode Editor or WebStorm and set up the following extensions.
+  
+  - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) 
+  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+## Starting the Local Server
+- Open the terminal and enter the following command
+  ```
+  yarn start
+  ```
+
+### Note 
+  This project uses a remote PSQL database which is hosted in Heroku
