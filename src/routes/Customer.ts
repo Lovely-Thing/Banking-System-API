@@ -1,27 +1,34 @@
 import { Router } from 'express';
-import { createCustomer, getCustomers } from '../controllers/Customer';
+import { getCustomerById, updateCustomer } from '../controllers/Customer';
 
 const route = Router();
 
-route.post('/', async (req, res) => {
+route.get('/:id', async (req, res) => {
 	try {
-		const customer = await createCustomer(req.body);
-		return res.status(201).json(customer);
+		const customer = await getCustomerById(req.params.id as string);
+		res.status(200).json(customer);
 	} catch (e) {
-		// console.log(e);
-		res.status(400).json({
-			message: { body: ['Could not create customer', e.message] },
+		res.status(404).json({
+			message: { body: ['Not Found', e.message] },
 		});
 	}
 });
 
-route.get('/', async (req, res) => {
+route.patch('/:id', async (req, res) => {
+	if (!req.body)
+		return res.status(400).json({
+			message: { body: ['Please enter data to be updated'] },
+		});
+
 	try {
-		const customers = await getCustomers();
-		return res.status(200).json(customers);
+		const updatedCustomer = await updateCustomer(
+			req.params.id as string,
+			req.body
+		);
+		return res.status(201).json(updatedCustomer);
 	} catch (e) {
-		res.status(404).json({
-			message: { body: ['Customers Not Found', e.message] },
+		res.status(400).json({
+			message: { body: ['Could not update customer', e.message] },
 		});
 	}
 });

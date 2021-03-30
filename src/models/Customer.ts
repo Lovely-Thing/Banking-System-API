@@ -1,10 +1,4 @@
-import {
-	Column,
-	Entity,
-	ManyToOne,
-	OneToMany,
-	PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from './Address';
 import { IsEmail, IsInt, IsPhoneNumber, Min } from 'class-validator';
 import { Account } from './Account';

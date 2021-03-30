@@ -5,6 +5,7 @@ import { createConnection } from 'typeorm';
 import { Customer } from './models/Customer';
 import { Account } from './models/Account';
 import { Transaction } from './models/Transaction';
+import { customersRoutes } from './routes/Customers';
 import { customerRoutes } from './routes/Customer';
 
 dotenv.config();
@@ -23,7 +24,8 @@ app.get('/', (req, res) => {
 	res.send('Hey World!');
 });
 
-app.use('/api/customers', customerRoutes);
+app.use('/api/customers', customersRoutes);
+app.use('/api/customer', customerRoutes);
 
 async function start() {
 	await createConnection({
