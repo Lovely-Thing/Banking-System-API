@@ -28,15 +28,19 @@ export class Account {
 	})
 	role!: accountTypes;
 
-	@Column('double precision')
+	@Column('double precision', { default: 0 })
 	@Min(0)
 	balance!: number;
 
-	// @ManyToOne(() => Customer, customer => customer.accounts)
-	// customer!: Customer;
+	@ManyToOne(() => Customer, customer => customer.accounts)
+	customer!: Customer;
 
-	@OneToMany(() => Transaction, account => account.transactionId)
-	transactions!: Transaction[];
+	// @OneToMany(() => Transaction, account => account.transactionId)
+	// transactions!: Transaction[];
+
+	constructor(customer: Customer) {
+		this.customer = customer;
+	}
 
 	//TODO: Link To Transactions and Customers
 }

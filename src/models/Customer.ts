@@ -30,8 +30,8 @@ export class Customer {
 	@Column(() => Address)
 	address?: Address;
 
-	// @OneToMany(() => Account, account => account.customer)
-	// accounts!: Account[];
+	@OneToMany(() => Account, account => account.customer)
+	accounts!: Account[];
 
 	constructor(
 		firstName: string,
