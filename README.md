@@ -33,6 +33,7 @@ This is a project which demonstrates Homomorphic Encryption.
 ## Starting the Local Server
 
 - Open the terminal and enter the following command
+  
   ```
   yarn start
   ```
@@ -40,6 +41,7 @@ This is a project which demonstrates Homomorphic Encryption.
 ## Accessing the Database from PSQL CLI
 
 - Fire the Terminal and enter the following command.
+  
   ```
   psql postgres://zuvzyhnvuaalio:c041c3f990aff74e3eee18dbd0391d8dc2695803243e1e0b79bffd1e14712342@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/ddr537u7rgau4l
   ```
