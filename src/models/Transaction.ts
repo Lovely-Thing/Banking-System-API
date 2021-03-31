@@ -21,8 +21,18 @@ export class Transaction {
 	date!: string;
 
 	@ManyToOne(() => Account, transaction => transaction.accountNumber)
-	account!: Account;
-}
+	receivedAccount!: Account;
 
-//TODO: Relate Customer
-//TODO: Relate Account
+	@ManyToOne(() => Account, transaction => transaction.accountNumber)
+	senderAccount!: Account;
+
+	constructor(
+		amount: number,
+		senderAccount: Account,
+		receivedAccount: Account
+	) {
+		this.amount = amount;
+		this.senderAccount = senderAccount;
+		this.receivedAccount = receivedAccount;
+	}
+}

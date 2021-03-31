@@ -4,6 +4,7 @@ import {
 	Column,
 	ManyToOne,
 	OneToMany,
+	CreateDateColumn,
 } from 'typeorm';
 import { Min } from 'class-validator';
 import { Customer } from './Customer';
@@ -35,12 +36,14 @@ export class Account {
 	@ManyToOne(() => Customer, customer => customer.accounts)
 	customer!: Customer;
 
-	// @OneToMany(() => Transaction, account => account.transactionId)
-	// transactions!: Transaction[];
+	@CreateDateColumn()
+	accountCreated!: string;
 
-	constructor(customer: Customer) {
+	@OneToMany(() => Transaction, account => account.transactionId)
+	transactions!: Transaction[];
+
+	constructor(customer: Customer, balance?: number) {
 		this.customer = customer;
+		this.balance = balance || 0;
 	}
-
-	//TODO: Link To Transactions and Customers
 }

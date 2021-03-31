@@ -1,6 +1,12 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	Entity,
+	OneToMany,
+	PrimaryColumn,
+	PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Address } from './Address';
-import { IsEmail, IsInt, IsPhoneNumber, Min } from 'class-validator';
+import { IsDate, IsEmail, IsInt, IsPhoneNumber, Min } from 'class-validator';
 import { Account } from './Account';
 
 @Entity()
@@ -8,13 +14,16 @@ export class Customer {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string;
 
+	@PrimaryColumn('varchar', { nullable: false, length: 12, unique: true })
+	aadhaar!: string;
+
 	@Column('varchar', { nullable: false })
 	firstName: string;
 
 	@Column('varchar', { nullable: false })
 	lastName: string;
 
-	@Column('varchar', { nullable: false, unique: true })
+	@Column('varchar', { nullable: false })
 	@IsPhoneNumber()
 	phone: string;
 
@@ -27,6 +36,10 @@ export class Customer {
 	@Min(18)
 	age!: number;
 
+	@Column('date', { nullable: true })
+	@IsDate()
+	DOB?: string;
+
 	@Column(() => Address)
 	address?: Address;
 
@@ -34,12 +47,14 @@ export class Customer {
 	accounts!: Account[];
 
 	constructor(
+		aadhaar: string,
 		firstName: string,
 		lastName: string,
 		phone: string,
 		age: string,
 		email?: string
 	) {
+		this.aadhaar = aadhaar;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phone;
@@ -47,8 +62,3 @@ export class Customer {
 		this.age = +age;
 	}
 }
-
-//TODO: DOB
-//TODO: Last Transaction
-//TODO: Account Relation
-//TODO: Transaction Relation

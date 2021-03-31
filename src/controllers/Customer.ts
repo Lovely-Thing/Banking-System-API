@@ -3,6 +3,7 @@ import { Customer } from '../models/Customer';
 import { createAccount } from './Account';
 
 interface CustomerSignUpData {
+	aadhaar: string;
 	firstName: string;
 	lastName: string;
 	phone: string;
@@ -24,8 +25,9 @@ interface UpdateCustomerData {
 }
 
 export async function createCustomer(data: CustomerSignUpData) {
-	const { firstName, lastName, email, phone, age } = data;
+	const { firstName, lastName, email, phone, age, aadhaar } = data;
 
+	if (!aadhaar) throw new Error('Please give aadhaar number of the customer');
 	if (!firstName) throw new Error('Please Enter First Name of the Customer');
 	if (!lastName) throw new Error('Please Enter Last Name of the Customer');
 	if (!phone) throw new Error('Please Enter Phone Number of the Customer');
@@ -35,14 +37,21 @@ export async function createCustomer(data: CustomerSignUpData) {
 
 	const repo = await getRepository(Customer);
 
-	const existingCustomer = await repo.findOne({ phone });
+	const existingCustomer = await repo.findOne({ aadhaar });
 
 	if (existingCustomer)
 		throw new Error('Customer with the details already exists');
 	// TODO: Add multiple accounts feature
 
 	try {
-		const customer = new Customer(firstName, lastName, phone, age, email);
+		const customer = new Customer(
+			aadhaar,
+			firstName,
+			lastName,
+			phone,
+			age,
+			email
+		);
 		await repo.save(customer);
 		const account = await createAccount(customer);
 
@@ -61,18 +70,28 @@ export async function getCustomers() {
 
 export async function getCustomerById(id: string) {
 	const repo = await getRepository(Customer);
-
 	const customer = await repo.findOne(id);
-
 	if (!customer) throw new Error('No Customer with this ID in the bank');
+	return customer;
+}
+
+export async function getCustomerByAadhaar(aadhaar: string) {
+	const repo = await getRepository(Customer);
+
+	const customer = await repo.findOne({ aadhaar });
+
+	if (!customer) throw new Error('No Customer with this Aadhaar in the bank');
 
 	return customer;
 }
 
-export async function updateCustomer(id: string, data: UpdateCustomerData) {
+export async function updateCustomer(
+	aadhaar: string,
+	data: UpdateCustomerData
+) {
 	const repo = await getRepository(Customer);
 
-	const existingCustomer = await repo.findOne({ id: id });
+	const existingCustomer = await repo.findOne({ aadhaar });
 
 	if (!existingCustomer)
 		throw new Error('Customer with the given ID does not exist');

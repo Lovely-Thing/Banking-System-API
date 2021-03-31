@@ -37,4 +37,4 @@ This is a project which demonstrates Homomorphic Encryption.
   ```
 
 ### Note 
-  This project uses a remote PSQL database which is hosted in Heroku
+  This project uses a remote PSQL database which is hosted in Heroku.
