@@ -10,9 +10,9 @@ import { customerRoutes } from './routes/Customer';
 
 dotenv.config();
 const port = process.env.PORT || 3000;
-// const username = process.env.USERNAME;
-// const password = process.env.PASSWORD;
-// const database = process.env.DB;
+const username = process.env.USERNAME;
+const password = process.env.PASSWORD;
+const database = process.env.DB;
 const URI = process.env.URI;
 
 const app = express();
@@ -30,11 +30,11 @@ app.use('/api/customer', customerRoutes);
 async function start() {
 	await createConnection({
 		type: 'postgres',
-		url: URI,
-		// username,
-		// password,
-		// database,
-		ssl: { rejectUnauthorized: !URI }, // Only for Remote DB
+		// url: URI,
+		username,
+		password,
+		database,
+		// ssl: { rejectUnauthorized: !URI }, // Only for Remote DB
 		entities: [Customer, Account, Transaction],
 		logger: 'simple-console',
 		synchronize: true, // Only for Development

@@ -1,10 +1,4 @@
-import {
-	Column,
-	Entity,
-	OneToMany,
-	PrimaryColumn,
-	PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from './Address';
 import { IsDate, IsEmail, IsInt, IsPhoneNumber, Min } from 'class-validator';
 import { Account } from './Account';
@@ -14,7 +8,7 @@ export class Customer {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string;
 
-	@PrimaryColumn('varchar', { nullable: false, length: 12, unique: true })
+	@Column('varchar', { nullable: false, length: 12, unique: true })
 	aadhaar!: string;
 
 	@Column('varchar', { nullable: false })
@@ -38,7 +32,7 @@ export class Customer {
 
 	@Column('date', { nullable: true })
 	@IsDate()
-	DOB?: string;
+	dob?: string;
 
 	@Column(() => Address)
 	address?: Address;
