@@ -30,11 +30,11 @@ app.use('/api/customer', customerRoutes);
 async function start() {
 	await createConnection({
 		type: 'postgres',
-		// url: URI,
-		username,
-		password,
-		database,
-		// ssl: { rejectUnauthorized: !URI }, // Only for Remote DB
+		url: URI,
+		// username,
+		// password,
+		// database,
+		ssl: { rejectUnauthorized: !URI }, // Only for Remote DB
 		entities: [Customer, Account, Transaction],
 		logger: 'simple-console',
 		synchronize: true, // Only for Development

@@ -1,2 +1,20 @@
 How To Implement RSA Encryption Algorithm Using Node.js and Generate Public/Private Key Pairs
 https://www.youtube.com/watch?v=ZdgpIK9shms
+
+Node-RSA
+https://www.npmjs.com/package/node-rsa
+
+Encryption - RSA implemented through Java Script to Encryt/Decrypt data
+https://www.codeproject.com/articles/4959/encryption-rsa-implemented-through-java-script-to
+
+Javascript Paillier demo
+https://github.com/mhe/jspaillier
+
+Homomorphic Encryption — for Web Apps 🤔
+https://medium.com/@s0l0ist/homomorphic-encryption-for-web-apps-a3fa52e9f03d
+
+Homomorphic Encryption — for Web Apps 🧐 (Part 2)
+https://medium.com/@s0l0ist/homomorphic-encryption-for-web-apps-b615fb64d2a2
+
+Introduction to Homomorphic Encryption by Pascal Paillier
+https://www.youtube.com/watch?v=umqz7kKWxyw
