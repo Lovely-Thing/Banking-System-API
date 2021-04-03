@@ -14,6 +14,7 @@
   "author": "Aditya Manikanth Rao",
   "license": "MIT",
   "dependencies": {
+    "bigint-crypto-utils": "^3.0.11",
     "body-parser": "^1.19.0",
     "class-validator": "^0.13.1",
     "dotenv": "^8.2.0",
