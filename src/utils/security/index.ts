@@ -13,12 +13,12 @@ export async function generatePrimeNumbers(BIT_SIZE: number) {
 	return await prime(BIT_SIZE);
 }
 
-interface PublicKey {
+export interface PublicKey {
 	n: bigint;
 	g: bigint;
 }
 
-interface PrivateKey {
+export interface PrivateKey {
 	lambda: bigint;
 	mu: bigint;
 }

@@ -7,8 +7,14 @@ import {
 	CreateDateColumn,
 } from 'typeorm';
 import { Min } from 'class-validator';
-import { Customer } from './Customer';
-import { Transaction } from './Transaction';
+import { Customer } from './customer';
+import { Transaction } from './transaction';
+import { cipherValue, generateKeys } from '../utils/security';
+
+interface StorePublicKey {
+	n: string;
+	g: string;
+}
 
 export enum accountTypes {
 	SAVINGS = 'savings',
@@ -29,9 +35,12 @@ export class Account {
 	})
 	role!: accountTypes;
 
-	@Column('double precision', { default: 0 })
+	@Column('text', { default: 0 })
 	@Min(0)
-	balance!: number;
+	balance!: string;
+
+	@Column('json', { nullable: true })
+	publicKey?: StorePublicKey;
 
 	@ManyToOne(() => Customer, customer => customer.accounts)
 	customer!: Customer;
@@ -44,6 +53,20 @@ export class Account {
 
 	constructor(customer: Customer, balance?: number) {
 		this.customer = customer;
-		this.balance = balance || 0;
+		this.balance = balance?.toString() || '0';
+		generateKeys(128)
+			.then(keys => {
+				const { publicKey } = keys;
+				this.publicKey = {
+					n: publicKey.n.toString(),
+					g: publicKey.g.toString(),
+				};
+				return cipherValue(0, publicKey);
+			})
+			.then(cypher => (this.balance = cypher.toString()))
+			.catch(err => {
+				console.error(err);
+				throw new Error('Cannot Generate Keys');
+			});
 	}
 }

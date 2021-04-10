@@ -3,7 +3,7 @@ import {
 	getCustomerByAadhaar,
 	getCustomerById,
 	updateCustomer,
-} from '../controllers/Customer';
+} from '../controllers/customer';
 
 const route = Router();
 

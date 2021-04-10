@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { createCustomer, getCustomers } from '../controllers/Customer';
+import {
+	createCustomer,
+	getCustomers,
+	loginCustomer,
+} from '../controllers/customer';
 
 const route = Router();
 
@@ -22,6 +26,17 @@ route.get('/', async (req, res) => {
 	} catch (e) {
 		res.status(404).json({
 			message: { body: ['Customers Not Found', e.message] },
+		});
+	}
+});
+
+route.post('/login', async (req, res) => {
+	try {
+		const customer = await loginCustomer(req.body);
+		return res.status(200).json(customer);
+	} catch (e) {
+		res.status(422).json({
+			errors: { body: ['Login Failed', e.message] },
 		});
 	}
 });

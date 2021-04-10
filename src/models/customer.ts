@@ -1,12 +1,15 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Address } from './Address';
+import { Address } from './address';
 import { IsDate, IsEmail, IsInt, IsPhoneNumber, Min } from 'class-validator';
-import { Account } from './Account';
+import { Account } from './account';
 
 @Entity()
 export class Customer {
 	@PrimaryGeneratedColumn('uuid')
 	id!: string;
+
+	@Column('varchar', { nullable: false })
+	hashedPassword!: string;
 
 	@Column('varchar', { nullable: false, length: 12, unique: true })
 	aadhaar!: string;
@@ -17,9 +20,9 @@ export class Customer {
 	@Column('varchar', { nullable: false })
 	lastName: string;
 
-	@Column('varchar', { nullable: false })
+	@Column('varchar', { nullable: false, unique: true })
 	@IsPhoneNumber()
-	phone: string;
+	phone!: string;
 
 	@Column('varchar', { nullable: true })
 	@IsEmail()
@@ -40,12 +43,15 @@ export class Customer {
 	@OneToMany(() => Account, account => account.customer)
 	accounts!: Account[];
 
+	token?: string;
+
 	constructor(
 		aadhaar: string,
 		firstName: string,
 		lastName: string,
 		phone: string,
 		age: string,
+		password: string,
 		email?: string
 	) {
 		this.aadhaar = aadhaar;
@@ -54,5 +60,6 @@ export class Customer {
 		this.phone = phone;
 		this.email = email;
 		this.age = +age;
+		this.hashedPassword = password;
 	}
 }

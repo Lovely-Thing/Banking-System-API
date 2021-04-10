@@ -1,24 +1,23 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { createConnection } from 'typeorm';
-import { Customer } from './models/Customer';
-import { Account } from './models/Account';
-import { Transaction } from './models/Transaction';
-import { customersRoutes } from './routes/Customers';
-import { customerRoutes } from './routes/Customer';
+import { Customer } from './models/customer';
+import { Account } from './models/account';
+import { Transaction } from './models/transaction';
+import { customersRoutes } from './routes/customers';
+import { customerRoutes } from './routes/customer';
 
 dotenv.config();
 const port = process.env.PORT || 3000;
-const username = process.env.USERNAME;
-const password = process.env.PASSWORD;
-const database = process.env.DB;
-const URI = process.env.URI;
+const url = process.env.URI;
 
 const app = express();
 
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
 	res.send('Hey World!');
@@ -30,21 +29,18 @@ app.use('/api/customer', customerRoutes);
 async function start() {
 	await createConnection({
 		type: 'postgres',
-		url: URI,
-		// username,
-		// password,
-		// database,
-		ssl: { rejectUnauthorized: !URI }, // Only for Remote DB
+		url,
+		ssl: { rejectUnauthorized: !url }, // Only for Remote DB
 		entities: [Customer, Account, Transaction],
 		logger: 'simple-console',
 		synchronize: true, // Only for Development
-		logging: true,
-		// dropSchema: true,
+		// logging: true,
+		dropSchema: true,
 	});
 
-	app.listen(port, () => {
-		console.log(`Server running on http://localhost:${port}`);
-	});
+	app.listen(port, () =>
+		console.log(`Server running on http://localhost:${port}`)
+	);
 }
 
 start();

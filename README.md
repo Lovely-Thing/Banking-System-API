@@ -8,6 +8,7 @@ This is a project which demonstrates Homomorphic Encryption.
 3. [PostgreSQL v13.1](https://www.postgresql.org/)
 4. [TypeScript](https://www.typescriptlang.org/)
 5. [TypeORM](https://typeorm.io/)
+6. [Heroku](https://devcenter.heroku.com/)
 
 ## Setting Up the Project Locally
 
@@ -20,7 +21,7 @@ This is a project which demonstrates Homomorphic Encryption.
 - Create a ```.env``` file in the project and add the following details
   ```dotenv
   PORT = 8000
-  URI = postgres://zuvzyhnvuaalio:c041c3f990aff74e3eee18dbd0391d8dc2695803243e1e0b79bffd1e14712342@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/ddr537u7rgau4l
+  URI = postgres://isvkwrqqjnieko:baded8b4facfa3389ac9f416d0e515eb565aa6860f86b55bce81f1921a651c64@ec2-52-45-73-150.compute-1.amazonaws.com:5432/d7ca2tpfq2u8pv
   ```
  
 ## Taking Advantage of Linting
@@ -43,7 +44,11 @@ This is a project which demonstrates Homomorphic Encryption.
 - Fire the Terminal and enter the following command.
   
   ```
-  psql postgres://zuvzyhnvuaalio:c041c3f990aff74e3eee18dbd0391d8dc2695803243e1e0b79bffd1e14712342@ec2-54-72-155-238.eu-west-1.compute.amazonaws.com:5432/ddr537u7rgau4l
+  psql postgres://isvkwrqqjnieko:baded8b4facfa3389ac9f416d0e515eb565aa6860f86b55bce81f1921a651c64@ec2-52-45-73-150.compute-1.amazonaws.com:5432/d7ca2tpfq2u8pv
+  ```
+- If You have [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed, then use this command
+  ```
+  heroku pg:psql postgresql-concave-21936 --app banking-system-aditya-dev
   ```
 
 ### Note 
