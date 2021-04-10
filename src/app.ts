@@ -35,7 +35,7 @@ async function start() {
 		logger: 'simple-console',
 		synchronize: true, // Only for Development
 		// logging: true,
-		dropSchema: true,
+		// dropSchema: true,
 	});
 
 	app.listen(port, () =>
