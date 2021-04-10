@@ -6,10 +6,9 @@ import {
 	OneToMany,
 	CreateDateColumn,
 } from 'typeorm';
-import { Min } from 'class-validator';
 import { Customer } from './customer';
 import { Transaction } from './transaction';
-import { cipherValue, generateKeys } from '../utils/security';
+import { PublicKey } from '../utils/security';
 
 interface StorePublicKey {
 	n: string;
@@ -28,6 +27,9 @@ export class Account {
 	@PrimaryGeneratedColumn('uuid')
 	accountNumber!: string;
 
+	@Column('string', { nullable: false })
+	hashedPin!: string;
+
 	@Column({
 		type: 'enum',
 		enum: accountTypes,
@@ -35,8 +37,7 @@ export class Account {
 	})
 	role!: accountTypes;
 
-	@Column('text', { default: 0 })
-	@Min(0)
+	@Column('text')
 	balance!: string;
 
 	@Column('json', { nullable: true })
@@ -51,22 +52,18 @@ export class Account {
 	@OneToMany(() => Transaction, account => account.transactionId)
 	transactions!: Transaction[];
 
-	constructor(customer: Customer, balance?: number) {
+	constructor(
+		customer: Customer,
+		publicKey: PublicKey,
+		balance: bigint,
+		pin: string
+	) {
 		this.customer = customer;
-		this.balance = balance?.toString() || '0';
-		generateKeys(128)
-			.then(keys => {
-				const { publicKey } = keys;
-				this.publicKey = {
-					n: publicKey.n.toString(),
-					g: publicKey.g.toString(),
-				};
-				return cipherValue(0, publicKey);
-			})
-			.then(cypher => (this.balance = cypher.toString()))
-			.catch(err => {
-				console.error(err);
-				throw new Error('Cannot Generate Keys');
-			});
+		this.publicKey = {
+			n: publicKey.n.toString(),
+			g: publicKey.g.toString(),
+		};
+		this.balance = balance.toString();
+		this.hashedPin = pin;
 	}
 }

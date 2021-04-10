@@ -13,6 +13,7 @@ interface CustomerSignUpData {
 	email?: string;
 	age: string;
 	password: string;
+	pin: string;
 }
 
 interface UpdateCustomerData {
@@ -20,6 +21,8 @@ interface UpdateCustomerData {
 	lastName?: string;
 	email?: string;
 	age?: string;
+	pin?: string; //TODO
+	password?: string; //TODO
 	address?: {
 		zipCode?: string;
 		street?: string;
@@ -34,7 +37,16 @@ interface CustomerLoginData {
 }
 
 export async function createCustomer(data: CustomerSignUpData) {
-	const { firstName, lastName, email, phone, age, aadhaar, password } = data;
+	const {
+		firstName,
+		lastName,
+		email,
+		phone,
+		age,
+		aadhaar,
+		password,
+		pin,
+	} = data;
 
 	if (!aadhaar) throw new Error('Please give aadhaar number of the customer');
 	if (!firstName) throw new Error('Please Enter First Name of the Customer');
@@ -42,6 +54,8 @@ export async function createCustomer(data: CustomerSignUpData) {
 	if (!phone) throw new Error('Please Enter Phone Number of the Customer');
 	if (!age) throw new Error('Please Enter the age of the Customer');
 	if (!password) throw new Error('Please Enter the password');
+	if (!pin || pin.length !== 6)
+		throw new Error('Please enter a valid 6 digit pin');
 
 	if (+age < 18) throw new Error('Customer should be above 18 years old');
 
@@ -66,8 +80,7 @@ export async function createCustomer(data: CustomerSignUpData) {
 			email
 		);
 		await repo.save(customer);
-		const account = await createAccount(customer);
-		return { account };
+		return await createAccount(customer, pin);
 	} catch (e) {
 		console.error(e);
 	}

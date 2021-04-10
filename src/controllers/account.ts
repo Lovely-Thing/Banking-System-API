@@ -1,18 +1,20 @@
 import { Customer } from '../models/customer';
 import { getRepository } from 'typeorm';
 import { Account } from '../models/account';
-import { generateKeys } from '../utils/security';
+import { generateKeys, cipherValue } from '../utils/security';
+import { hashPassword } from '../utils/hashPassword';
+import { createPrivateKeyRow } from './PrivateKeyTable';
 
-export async function createAccount(customer: Customer) {
+export async function createAccount(customer: Customer, pin: string) {
+	if (pin.length !== 6) throw new Error('Pin should only be of length 6');
+
 	try {
 		const repo = await getRepository(Account);
-		const account = new Account(customer);
-		const { publicKey } = await generateKeys(128);
-		console.log('generating key', publicKey);
-		account.publicKey = {
-			n: publicKey.n.toString(),
-			g: publicKey.g.toString(),
-		};
+		const { publicKey, privateKey } = await generateKeys(128);
+		const balance = await cipherValue(0, publicKey);
+		const hashedPin = await hashPassword(pin);
+		const account = new Account(customer, publicKey, balance, hashedPin);
+		const privateKeyRow = await createPrivateKeyRow(pin, privateKey);
 		await repo.save(account);
 		return account;
 	} catch (e) {
