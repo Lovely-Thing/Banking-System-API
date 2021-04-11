@@ -6,7 +6,7 @@ import {
 	ManyToOne,
 } from 'typeorm';
 import { Min } from 'class-validator';
-import { Account } from './account';
+// import { Account } from './Account';
 
 export enum TransactionTypes {
 	TRANSFER = 'transfer',
@@ -32,24 +32,24 @@ export class Transaction {
 
 	@CreateDateColumn({ type: 'timestamp', default: () => 'LOCALTIMESTAMP' })
 	date!: string;
+	//
+	// @ManyToOne(() => Account, transaction => transaction.accountNumber, {
+	// 	nullable: true,
+	// })
+	// receivedAccount?: Account;
 
-	@ManyToOne(() => Account, transaction => transaction.accountNumber, {
-		nullable: true,
-	})
-	receivedAccount?: Account;
+	// @ManyToOne(() => Account, transaction => transaction.accountNumber)
+	// senderAccount!: Account;
 
-	@ManyToOne(() => Account, transaction => transaction.accountNumber)
-	senderAccount!: Account;
-
-	constructor(
-		amount: number,
-		senderAccount: Account,
-		transactionType: TransactionTypes,
-		receivedAccount?: Account
-	) {
-		this.amount = amount;
-		this.senderAccount = senderAccount;
-		this.receivedAccount = receivedAccount;
-		this.transactionType = transactionType;
-	}
+	// constructor(
+	// 	amount: number,
+	// 	senderAccount: Account,
+	// 	transactionType: TransactionTypes,
+	// 	receivedAccount?: Account
+	// ) {
+	// 	this.amount = amount;
+	// 	this.senderAccount = senderAccount;
+	// 	this.receivedAccount = receivedAccount;
+	// 	this.transactionType = transactionType;
+	// }
 }

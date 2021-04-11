@@ -1,5 +1,5 @@
 import { sign, verify } from 'jsonwebtoken';
-import { Customer } from '../models/customer';
+import { Customer } from '../models/Customer';
 import dotenv from 'dotenv';
 
 dotenv.config();

@@ -6,8 +6,8 @@ import {
 	OneToMany,
 	CreateDateColumn,
 } from 'typeorm';
-import { Customer } from './customer';
-import { Transaction } from './transaction';
+import { Customer } from './Customer';
+// import { Transaction } from './transaction';
 import { PublicKey } from '../utils/security';
 
 interface StorePublicKey {
@@ -27,9 +27,6 @@ export class Account {
 	@PrimaryGeneratedColumn('uuid')
 	accountNumber!: string;
 
-	@Column('string', { nullable: false })
-	hashedPin!: string;
-
 	@Column({
 		type: 'enum',
 		enum: accountTypes,
@@ -41,7 +38,7 @@ export class Account {
 	balance!: string;
 
 	@Column('json', { nullable: true })
-	publicKey?: StorePublicKey;
+	publicKey!: StorePublicKey;
 
 	@ManyToOne(() => Customer, customer => customer.accounts)
 	customer!: Customer;
@@ -49,21 +46,15 @@ export class Account {
 	@CreateDateColumn()
 	accountCreated!: string;
 
-	@OneToMany(() => Transaction, account => account.transactionId)
-	transactions!: Transaction[];
+	// @OneToMany(() => Transaction, account => account.transactionId)
+	// transactions!: Transaction[];
 
-	constructor(
-		customer: Customer,
-		publicKey: PublicKey,
-		balance: bigint,
-		pin: string
-	) {
+	constructor(customer: Customer, publicKey: PublicKey, balance: bigint) {
 		this.customer = customer;
 		this.publicKey = {
-			n: publicKey.n.toString(),
-			g: publicKey.g.toString(),
+			n: publicKey?.n.toString() as string,
+			g: publicKey?.g.toString() as string,
 		};
-		this.balance = balance.toString();
-		this.hashedPin = pin;
+		this.balance = balance?.toString() as string;
 	}
 }

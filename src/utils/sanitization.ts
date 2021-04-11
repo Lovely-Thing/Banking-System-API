@@ -1,4 +1,4 @@
-import { Customer } from '../models/customer';
+import { Customer } from '../models/Customer';
 import deleteProperty = Reflect.deleteProperty;
 
 export default function sanitizeLogin(customer: Customer) {

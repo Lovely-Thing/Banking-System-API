@@ -8,7 +8,7 @@ interface StorePrivateKey {
 
 @Entity()
 export class PrivateKeyTable {
-	@PrimaryColumn('string')
+	@PrimaryColumn('text')
 	hashIdentifier!: string;
 
 	@Column('json', { nullable: true })
@@ -17,8 +17,8 @@ export class PrivateKeyTable {
 	constructor(hash: string, privateKey: PrivateKey) {
 		this.hashIdentifier = hash;
 		this.privateKey = {
-			lambda: privateKey.lambda.toString(),
-			mu: privateKey.mu.toString(),
+			lambda: privateKey?.lambda.toString() as string,
+			mu: privateKey?.mu.toString() as string,
 		};
 	}
 }

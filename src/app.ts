@@ -3,11 +3,12 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { createConnection } from 'typeorm';
-import { Customer } from './models/customer';
-import { Account } from './models/account';
-import { Transaction } from './models/transaction';
+import { Customer } from './models/Customer';
+import { Account } from './models/Account';
 import { customersRoutes } from './routes/customers';
-import { customerRoutes } from './routes/customer';
+import { PrivateKeyTable } from './models/PrivateKeyTable';
+import { accountsRoutes } from './routes/accounts';
+import { privateKeysRoutes } from './routes/privateKeys';
 
 dotenv.config();
 const port = process.env.PORT || 3000;
@@ -24,18 +25,19 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/customers', customersRoutes);
-app.use('/api/customer', customerRoutes);
+app.use('/api/accounts', accountsRoutes);
+app.use('/api/private', privateKeysRoutes);
 
 async function start() {
 	await createConnection({
 		type: 'postgres',
 		url,
 		ssl: { rejectUnauthorized: !url }, // Only for Remote DB
-		entities: [Customer, Account, Transaction],
+		entities: [Customer, Account, PrivateKeyTable],
 		logger: 'simple-console',
 		synchronize: true, // Only for Development
-		// logging: true,
-		// dropSchema: true,
+		logging: true,
+		// dropSchema: true, // Only for Development
 	});
 
 	app.listen(port, () =>

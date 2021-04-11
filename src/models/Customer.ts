@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Address } from './address';
+import { Address } from './Address';
 import { IsDate, IsEmail, IsInt, IsPhoneNumber, Min } from 'class-validator';
-import { Account } from './account';
+import { Account } from './Account';
 
 @Entity()
 export class Customer {
