@@ -4,7 +4,8 @@
   "description": "A NodeJS Application using homomorphic encryption for its data",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "tsc": "tsc",
+    "build": "yarn run tsc",
     "prestart": "yarn run build",
     "start": "node dist/app.js",
     "clean": "npx rimraf node_modules dist yarn.lock package-lock.json",
