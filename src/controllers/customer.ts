@@ -55,7 +55,6 @@ export async function createCustomer(data: CustomerSignUpData) {
 
 	if (existingCustomer)
 		throw new Error('Customer with the details already exists');
-	// TODO: Add multiple accounts feature
 
 	try {
 		const customer = new Customer(

@@ -1,4 +1,4 @@
-import { TransactionTypes } from '../models/transaction';
+import { TransactionTypes } from '../models/Transaction';
 
 export default function checkTransactionType(transactionType: string) {
 	const value = transactionType.toLowerCase();

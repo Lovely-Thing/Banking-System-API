@@ -7,15 +7,15 @@ import {
 	CreateDateColumn,
 } from 'typeorm';
 import { Customer } from './Customer';
-// import { Transaction } from './transaction';
 import { PublicKey } from '../utils/security';
+import { Transaction } from './Transaction';
 
 interface StorePublicKey {
 	n: string;
 	g: string;
 }
 
-export enum accountTypes {
+export enum AccountTypes {
 	SAVINGS = 'savings',
 	CURRENT = 'current',
 	FD = 'fixed deposit',
@@ -29,10 +29,10 @@ export class Account {
 
 	@Column({
 		type: 'enum',
-		enum: accountTypes,
-		default: accountTypes.SAVINGS,
+		enum: AccountTypes,
+		default: AccountTypes.SAVINGS,
 	})
-	role!: accountTypes;
+	role!: AccountTypes;
 
 	@Column('text')
 	balance!: string;
@@ -46,8 +46,8 @@ export class Account {
 	@CreateDateColumn()
 	accountCreated!: string;
 
-	// @OneToMany(() => Transaction, account => account.transactionId)
-	// transactions!: Transaction[];
+	@OneToMany(() => Transaction, account => account.transactionId)
+	transactions!: Transaction[];
 
 	constructor(customer: Customer, publicKey: PublicKey, balance: bigint) {
 		this.customer = customer;

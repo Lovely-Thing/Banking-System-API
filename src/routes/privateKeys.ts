@@ -6,16 +6,20 @@ import { Account } from '../models/Account';
 
 const route = Router();
 
-route.get('/', authByToken, async (req, res) => {
-	if (!req.body.accountNumber)
+route.get('/:accountNumber', authByToken, async (req, res) => {
+	if (!req.params.accountNumber)
 		res.status(404).json({
-			message: { body: ['Please enter the correct Account Number'] },
+			message: { body: ['Please enter the Account Number'] },
 		});
+
+	const { accountNumber } = req.params;
 
 	const account = await getRepository(Account).findOne({
 		where: {
-			accountNumber: req.body.accountNumber,
-			customer: (req as any).customer,
+			accountNumber,
+			customer: {
+				id: (req as any).customer.id,
+			},
 		},
 	});
 

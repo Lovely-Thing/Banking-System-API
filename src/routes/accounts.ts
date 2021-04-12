@@ -65,18 +65,30 @@ route.get('/:accountNumber', authByToken, async (req, res) => {
 });
 
 // TEST GET / --> Get all Accounts
-// route.get('/', async (req, res) => {
-// 	try {
-// 		const accounts = await getAccounts();
-// 		res.status(200).json(accounts);
-// 	} catch (e) {
-// 		res.status(404).json({
-// 			message: { body: ['Not Found', e.message] },
-// 		});
-// 	}
-// });
+route.get('/', async (req, res) => {
+	try {
+		const accounts = await getAccounts();
+		res.status(200).json(accounts);
+	} catch (e) {
+		res.status(404).json({
+			message: { body: ['Not Found', e.message] },
+		});
+	}
+});
 
 route.get('/customer/:customerId', authByToken, async (req, res) => {
+	if (!req.params.customerId)
+		return res.status(401).json({
+			error: { body: ['Please enter a valid Customer ID'] },
+		});
+
+	if ((req as any).customer.id !== req.params.customerId)
+		return res.status(401).json({
+			error: {
+				body: ['You are not authorised to access the customer accounts'],
+			},
+		});
+
 	try {
 		const customerId = req.params.customerId;
 		const accounts = await getAccountsOfCustomer(customerId);

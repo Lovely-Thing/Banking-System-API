@@ -15,10 +15,10 @@ export class Customer {
 	aadhaar!: string;
 
 	@Column('varchar', { nullable: false })
-	firstName: string;
+	firstName!: string;
 
 	@Column('varchar', { nullable: false })
-	lastName: string;
+	lastName!: string;
 
 	@Column('varchar', { nullable: false, unique: true })
 	@IsPhoneNumber()

@@ -12,7 +12,7 @@ import { authByToken } from '../middleware/authByToken';
 const route = Router();
 
 // POST / --> Create Customer
-route.post('/', async (req, res) => {
+route.post('/signup', async (req, res) => {
 	try {
 		const customer = await createCustomer(req.body);
 		return res.status(201).json(customer);
