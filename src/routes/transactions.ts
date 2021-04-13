@@ -1,8 +1,7 @@
 import { Router } from 'express';
-import { Transaction, TransactionTypes } from '../models/Transaction';
+import { TransactionTypes } from '../models/Transaction';
 import { createTransaction, getTransactions } from '../controllers/transaction';
 import { authByToken } from '../middleware/authByToken';
-// import { createTransaction } from '../controllers/transaction';
 
 const route = Router();
 
@@ -35,11 +34,100 @@ route.post('/deposit', authByToken, async (req, res) => {
 			message: { body: ['Please provide the amount in encrypted form'] },
 		});
 
+	// TODO: Add check to match account owner and logged in customer
+
 	try {
 		const transaction = await createTransaction({
 			senderAmount: amount,
 			senderAccountNumber: senderAccount,
 			transactionType: TransactionTypes.DEPOSIT,
+		});
+
+		res.status(200).json(transaction);
+	} catch (e) {
+		return res.status(500).json({
+			message: { body: ['Transaction Unsuccessful'] },
+		});
+	}
+});
+
+route.post('/withdraw', authByToken, async (req, res) => {
+	if (!req.body)
+		return res.status(400).json({
+			message: { body: ['Please provide the transaction details'] },
+		});
+
+	const { senderAccount, amount } = req.body;
+
+	if (!senderAccount)
+		return res.status(400).json({
+			message: { body: ['Please provide the sender account details'] },
+		});
+
+	if (!amount)
+		return res.status(400).json({
+			message: { body: ['Please provide the amount in encrypted form'] },
+		});
+
+	// TODO: Add check to match account owner and logged in customer
+
+	try {
+		const transaction = await createTransaction({
+			senderAmount: amount,
+			senderAccountNumber: senderAccount,
+			transactionType: TransactionTypes.WITHDRAWAL,
+		});
+
+		res.status(200).json(transaction);
+	} catch (e) {
+		return res.status(500).json({
+			message: { body: ['Transaction Unsuccessful'] },
+		});
+	}
+});
+
+route.post('/transfer', authByToken, async (req, res) => {
+	if (!req.body)
+		return res.status(400).json({
+			message: { body: ['Please provide the transaction details'] },
+		});
+
+	const {
+		senderAccount,
+		senderAmount,
+		receiverAccount,
+		receiverAmount,
+	} = req.body;
+
+	if (!senderAccount)
+		return res.status(400).json({
+			message: { body: ['Please provide the sender account details'] },
+		});
+
+	if (!senderAmount)
+		return res.status(400).json({
+			message: { body: ['Please provide the amount in encrypted form'] },
+		});
+
+	if (!receiverAccount)
+		return res.status(400).json({
+			message: { body: ['Please provide the sender account details'] },
+		});
+
+	if (!receiverAmount)
+		return res.status(400).json({
+			message: { body: ['Please provide the amount in encrypted form'] },
+		});
+
+	// TODO: Add check to match account owner and logged in customer
+
+	try {
+		const transaction = await createTransaction({
+			senderAmount: senderAmount,
+			senderAccountNumber: senderAccount,
+			transactionType: TransactionTypes.WITHDRAWAL,
+			receiverAccountNumber: receiverAccount,
+			receiverAmount: receiverAmount,
 		});
 
 		res.status(200).json(transaction);

@@ -38,6 +38,7 @@ export async function createTransaction(data: TransactionData) {
 
 	try {
 		const repo = await getRepository(Transaction);
+
 		const transaction = new Transaction(
 			sender,
 			senderAmount,
@@ -45,12 +46,14 @@ export async function createTransaction(data: TransactionData) {
 			receiver,
 			receiverAmount
 		);
+
 		await repo.save(transaction);
 
 		sender.balance = await multiplyTwoCiphers(
 			BigInt(sender.balance),
 			BigInt(senderAmount)
 		).toString();
+
 		await accountRepo.save(sender);
 
 		if (receiver) {
@@ -58,8 +61,10 @@ export async function createTransaction(data: TransactionData) {
 				BigInt(receiver.balance),
 				BigInt(receiverAmount)
 			).toString();
+
 			await accountRepo.save(receiver);
 		}
+
 		return transaction;
 	} catch (e) {
 		console.error(e);

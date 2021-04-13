@@ -52,7 +52,7 @@ export class Transaction {
 		this.senderAccount = senderAccount;
 		this.senderEncryptedAmount = senderAmount;
 		this.transactionType = transactionType;
-		this.receiverAccount = receiverAccount;
-		this.receiverEncryptedAmount = receiverAmount;
+		if (receiverAccount) this.receiverAccount = receiverAccount;
+		if (receiverAmount) this.receiverEncryptedAmount = receiverAmount;
 	}
 }

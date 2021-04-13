@@ -45,15 +45,17 @@ export async function getAccounts() {
 export async function getAccountsOfCustomer(customerID: string) {
 	const customerRepo = getRepository(Customer);
 
-	// const customer = await customerRepo.findOne({ id: customerID });
-	const customer = await customerRepo.findOne({ id: customerID });
+	const customer = await customerRepo.findOne(customerID);
 
 	if (!customer) throw new Error('Invalid Customer ID');
-
 	try {
-		const repo = await getRepository(Account);
+		const repo = getRepository(Customer);
 
-		return await repo.find({ where: { customer } });
+		const customer = await repo.findOne(customerID, {
+			relations: ['accounts'],
+		});
+
+		return (customer as any).accounts;
 	} catch (e) {
 		console.error(e);
 	}
