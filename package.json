@@ -4,13 +4,14 @@
   "description": "A NodeJS Application using homomorphic encryption for its data",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
-    "build": "yarn run tsc",
-    "prestart": "yarn run build",
+    "postinstall": "tsc",
+    "build": "tsc && npm run start",
+    "watch-ts": "tsc -w",
     "start": "node dist/app.js",
     "clean": "npx rimraf node_modules dist yarn.lock package-lock.json",
     "clean-install": "yarn run clean && yarn install",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "author": "Aditya Manikanth Rao",
   "license": "MIT",
