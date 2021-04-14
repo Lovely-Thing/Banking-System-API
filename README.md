@@ -21,7 +21,12 @@ This is a project which demonstrates Homomorphic Encryption.
 - Create a ```.env``` file in the project and add the following details
   ```dotenv
   PORT = 8000
-  URI = postgres://isvkwrqqjnieko:baded8b4facfa3389ac9f416d0e515eb565aa6860f86b55bce81f1921a651c64@ec2-52-45-73-150.compute-1.amazonaws.com:5432/d7ca2tpfq2u8pv
+  URI = postgres://ccbumjfxvfvdjw:5a27d2c17045e13c6b1ac720bff1b3b89038160d090fcd983f4221ef1eadc6be@ec2-54-216-185-51.eu-west-1.compute.amazonaws.com:5432/d2k7uain0dhcfp
+  JWT_SECRET = some-very-very-secret-string-no-one-can-guess
+  SALT_ROUNDS_PASSWORD = 12
+  PADDING_FOR_PRIVATEKEY_LEFT = You-Think-yoU-Are-BETter-THAAN-Uss???..I-donot-TThink-so
+  PADDING_FOR_PRIVATEKEY_RIGHT = dhOOp-se-NikaLKE-ChaaaaV-Sey
+  SECRET_PROP = accountNumber
   ```
  
 ## Taking Advantage of Linting
@@ -44,11 +49,11 @@ This is a project which demonstrates Homomorphic Encryption.
 - Fire the Terminal and enter the following command.
   
   ```
-  psql postgres://isvkwrqqjnieko:baded8b4facfa3389ac9f416d0e515eb565aa6860f86b55bce81f1921a651c64@ec2-52-45-73-150.compute-1.amazonaws.com:5432/d7ca2tpfq2u8pv
+  psql postgres://ccbumjfxvfvdjw:5a27d2c17045e13c6b1ac720bff1b3b89038160d090fcd983f4221ef1eadc6be@ec2-54-216-185-51.eu-west-1.compute.amazonaws.com:5432/d2k7uain0dhcfp
   ```
 - If You have [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed, then use this command
   ```
-  heroku pg:psql postgresql-concave-21936 --app banking-system-aditya-dev
+  heroku pg:psql postgresql-amorphous-58722 --app banking-system-he
   ```
 
 ### Note 

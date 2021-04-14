@@ -13,8 +13,8 @@ import { Transaction } from './models/Transaction';
 import { transactionRoutes } from './routes/transactions';
 
 dotenv.config();
-const port = process.env['PORT'] || 3000;
-const url = process.env['URI'];
+const port = process.env['PORT'] || 8000;
+const url = process.env['DATABASE_URL'];
 
 const app = express();
 
