@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "tsc",
     "start": "node dist/app.js",
+    "dev": "tsc && yarn start",
     "clean": "npx rimraf node_modules dist yarn.lock package-lock.json",
     "clean-install": "yarn run clean && yarn install",
     "lint": "eslint . --ext .ts",
