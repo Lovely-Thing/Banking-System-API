@@ -1,6 +1,6 @@
 # Banking System Using Homomorphic Encryption
 
-This is a project which demonstrates Homomorphic Encryption.
+This is a project which demonstrates Homomorphic Encryption using Paillier Encryption.
 
 ## Technologies Used
 1. [Yarn](https://yarnpkg.com/)
@@ -43,7 +43,7 @@ This is a project which demonstrates Homomorphic Encryption.
   ```
   yarn start
   ```
-## Contributors
+## Author
 
 - [Aditya Manikanth Rao](https://github.com/AdityaManikanth2810)
 
