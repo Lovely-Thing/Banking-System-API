@@ -1,10 +1,15 @@
 import { Router } from 'express';
 import { TransactionTypes } from '../models/Transaction';
-import { createTransaction, getTransactions } from '../controllers/transaction';
+import {
+	createTransaction,
+	getTransactions,
+	getTransactionsOfAccount,
+} from '../controllers/transaction';
 import { authByToken } from '../middleware/authByToken';
 
 const route = Router();
 
+// Test GET / --> Retrieve All Transactions
 route.get('/', async (req, res) => {
 	try {
 		const transactions = await getTransactions();
@@ -134,6 +139,18 @@ route.post('/transfer', authByToken, async (req, res) => {
 	} catch (e) {
 		return res.status(500).json({
 			message: { body: ['Transaction Unsuccessful'] },
+		});
+	}
+});
+
+route.get('/:accountNumber', async (req, res) => {
+	const accountNumber = req.params.accountNumber;
+	try {
+		const transactions = await getTransactionsOfAccount(accountNumber);
+		res.status(200).json(transactions);
+	} catch (e) {
+		return res.status(500).json({
+			message: { body: ['Cannot Pull the transactions', e.message] },
 		});
 	}
 });

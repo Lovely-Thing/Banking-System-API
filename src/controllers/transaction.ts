@@ -80,4 +80,22 @@ export async function getTransactions() {
 	}
 }
 
+export async function getTransactionsOfAccount(accountNumber: string) {
+	console.log(accountNumber);
+
+	try {
+		const repo = getRepository(Transaction);
+		return await repo.find({
+			where: [
+				{ senderAccount: accountNumber },
+				{ receiverAccount: accountNumber },
+			],
+			order: { date: 1 },
+			take: 15,
+		});
+	} catch (e) {
+		console.log(e);
+	}
+}
+
 // TODO: Write function to view all transactions of each customer

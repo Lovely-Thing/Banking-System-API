@@ -5,7 +5,6 @@ import {
 	CreateDateColumn,
 	ManyToOne,
 } from 'typeorm';
-import { Min } from 'class-validator';
 import { Account } from './Account';
 
 export enum TransactionTypes {
@@ -20,7 +19,6 @@ export class Transaction {
 	transactionId!: string;
 
 	@Column('varchar')
-	@Min(0)
 	senderEncryptedAmount!: string;
 
 	@Column('varchar', { nullable: true })
