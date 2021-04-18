@@ -21,11 +21,11 @@ This is a project which demonstrates Homomorphic Encryption.
 - Create a ```.env``` file in the project and add the following details
   ```dotenv
   PORT = 8000
-  URI = postgres://ccbumjfxvfvdjw:5a27d2c17045e13c6b1ac720bff1b3b89038160d090fcd983f4221ef1eadc6be@ec2-54-216-185-51.eu-west-1.compute.amazonaws.com:5432/d2k7uain0dhcfp
-  JWT_SECRET = some-very-very-secret-string-no-one-can-guess
+  URI = POSTGRES_DB_URL
+  JWT_SECRET = SECRET_KEY
   SALT_ROUNDS_PASSWORD = 12
-  PADDING_FOR_PRIVATEKEY_LEFT = You-Think-yoU-Are-BETter-THAAN-Uss???..I-donot-TThink-so
-  PADDING_FOR_PRIVATEKEY_RIGHT = dhOOp-se-NikaLKE-ChaaaaV-Sey
+  PADDING_FOR_PRIVATEKEY_LEFT = PADDING_RANDOM
+  PADDING_FOR_PRIVATEKEY_RIGHT = PADDING_RANDOM
   SECRET_PROP = accountNumber
   ```
  
@@ -43,18 +43,10 @@ This is a project which demonstrates Homomorphic Encryption.
   ```
   yarn start
   ```
-  
-## Accessing the Database from PSQL CLI
+## Contributors
 
-- Fire the Terminal and enter the following command.
-  
-  ```
-  psql postgres://ccbumjfxvfvdjw:5a27d2c17045e13c6b1ac720bff1b3b89038160d090fcd983f4221ef1eadc6be@ec2-54-216-185-51.eu-west-1.compute.amazonaws.com:5432/d2k7uain0dhcfp
-  ```
-- If You have [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed, then use this command
-  ```
-  heroku pg:psql postgresql-amorphous-58722 --app banking-system-he
-  ```
+- [Aditya Manikanth Rao](https://github.com/AdityaManikanth2810)
 
 ### Note 
   This project uses a remote PSQL database which is hosted in Heroku.
+

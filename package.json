@@ -10,7 +10,7 @@
     "clean": "npx rimraf node_modules dist yarn.lock package-lock.json",
     "clean-install": "yarn run clean && yarn install",
     "lint": "eslint . --ext .ts",
-    "deploy": "git add . && git commit -m Heroku && git push heroku main"
+    "deploy": "git push heroku main"
   },
   "author": "Aditya Manikanth Rao",
   "license": "MIT",
