@@ -31,8 +31,8 @@ export async function getPrivateKey(secretPassword: string) {
 	try {
 		const secret = `${process.env.PADDING_FOR_PRIVATEKEY_LEFT}${secretPassword}${process.env.PADDING_FOR_PRIVATEKEY_RIGHT}`;
 		const keys = await repo.find();
-		const privateKey = keys.filter(async key =>
-			await matchPassword(secret, key.hashIdentifier)
+		const privateKey = keys.filter(
+			async key => await matchPassword(secret, key.hashIdentifier)
 		);
 
 		if (!privateKey) throw new Error('Invalid Credentials');
@@ -45,4 +45,5 @@ export async function getPrivateKey(secretPassword: string) {
 
 export async function getAllPrivateKeys() {
 	const repo = getRepository(PrivateKeyTable);
+	return await repo.find();
 }
