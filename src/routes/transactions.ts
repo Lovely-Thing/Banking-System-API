@@ -143,8 +143,9 @@ route.post('/transfer', authByToken, async (req, res) => {
 	}
 });
 
-route.get('/:accountNumber', async (req, res) => {
+route.get('/:accountNumber', authByToken, async (req, res) => {
 	const accountNumber = req.params.accountNumber;
+
 	try {
 		const transactions = await getTransactionsOfAccount(accountNumber);
 		res.status(200).json(transactions);

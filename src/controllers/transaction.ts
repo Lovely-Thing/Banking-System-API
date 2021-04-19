@@ -91,6 +91,7 @@ export async function getTransactionsOfAccount(accountNumber: string) {
 				{ receiverAccount: accountNumber },
 			],
 			order: { date: 1 },
+			relations: ['receiverAccount', 'senderAccount'],
 			take: 15,
 		});
 	} catch (e) {
