@@ -31,7 +31,7 @@ interface UpdateCustomerData {
 }
 
 interface CustomerLoginData {
-	customerId: string;
+	phoneNumber: string;
 	password: string;
 }
 
@@ -121,15 +121,15 @@ export async function updateCustomer(id: string, data: UpdateCustomerData) {
 }
 
 export async function loginCustomer(data: CustomerLoginData) {
-	const { customerId: id, password } = data;
+	const { phoneNumber, password } = data;
 
-	if (!id) throw new Error('Please enter customer ID');
+	if (!phoneNumber) throw new Error('Please enter your phone number');
 	if (!password) throw new Error('Please enter a password');
 
 	const repo = getRepository(Customer);
 
-	const customer = await repo.findOne(id);
-	if (!customer) throw new Error('Customer with this ID not found');
+	const customer = await repo.findOne({ phone: phoneNumber });
+	if (!customer) throw new Error('Customer with this phone number not found');
 
 	const match = await matchPassword(password, customer.hashedPassword);
 	if (!match) throw new Error('Incorrect Password');
