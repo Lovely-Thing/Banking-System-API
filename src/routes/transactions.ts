@@ -130,7 +130,7 @@ route.post('/transfer', authByToken, async (req, res) => {
 		const transaction = await createTransaction({
 			senderAmount: senderAmount,
 			senderAccountNumber: senderAccount,
-			transactionType: TransactionTypes.WITHDRAWAL,
+			transactionType: TransactionTypes.TRANSFER,
 			receiverAccountNumber: receiverAccount,
 			receiverAmount: receiverAmount,
 		});

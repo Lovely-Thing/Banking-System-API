@@ -37,7 +37,7 @@ export async function createTransaction(data: TransactionData) {
 	}
 
 	try {
-		const repo = await getRepository(Transaction);
+		const repo = getRepository(Transaction);
 
 		const transaction = new Transaction(
 			sender,
