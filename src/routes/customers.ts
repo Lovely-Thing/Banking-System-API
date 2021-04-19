@@ -63,7 +63,7 @@ route.get('/:id', authByToken, async (req, res) => {
 	}
 });
 
-route.get('/aadhaar/:number', authByToken, async (req, res) => {
+route.get('/aadhaar/:number', async (req, res) => {
 	try {
 		const customer = await getCustomerByAadhaar(req.params.number as string);
 		res.status(200).json(customer);
