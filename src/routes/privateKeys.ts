@@ -32,7 +32,7 @@ route.get('/:accountNumber', authByToken, async (req, res) => {
 		});
 
 	try {
-		const keys = await getPrivateKey(req.body.accountNumber);
+		const keys = await getPrivateKey(req.params.accountNumber);
 		res.status(200).json(keys);
 	} catch (e) {
 		res.status(404).json({
@@ -43,7 +43,7 @@ route.get('/:accountNumber', authByToken, async (req, res) => {
 
 route.get('/', async (req, res) => {
 	const keys = await getAllPrivateKeys();
-	res.status(20).json(keys);
+	res.status(200).json(keys);
 });
 
 export const privateKeysRoutes = route;

@@ -31,13 +31,22 @@ export async function getPrivateKey(secretPassword: string) {
 	try {
 		const secret = `${process.env.PADDING_FOR_PRIVATEKEY_LEFT}${secretPassword}${process.env.PADDING_FOR_PRIVATEKEY_RIGHT}`;
 		const keys = await repo.find();
-		const privateKey = keys.filter(
-			async key => await matchPassword(secret, key.hashIdentifier)
-		);
+		const matchPromises = keys.map(async key => {
+			return await matchPassword(secret, key.hashIdentifier);
+		});
 
-		if (!privateKey) throw new Error('Invalid Credentials');
+		const result = await Promise.all(matchPromises);
 
-		return privateKey[0].privateKey;
+		let resultantIndex = -1;
+		result.forEach((booleanValue, index) => {
+			if (booleanValue) resultantIndex = index;
+		});
+
+		console.log(resultantIndex);
+
+		if (resultantIndex == -1) throw new Error('Invalid Credentials');
+
+		return keys[resultantIndex as number].privateKey;
 	} catch (e) {
 		console.error(e);
 	}
