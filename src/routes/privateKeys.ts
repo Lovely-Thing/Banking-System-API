@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import {getAllPrivateKeys, getPrivateKey} from '../controllers/privateKeyTable';
+import {
+	getAllPrivateKeys,
+	getPrivateKey,
+} from '../controllers/privateKeyTable';
 import { authByToken } from '../middleware/authByToken';
 import { getRepository } from 'typeorm';
 import { Account } from '../models/Account';
@@ -38,9 +41,9 @@ route.get('/:accountNumber', authByToken, async (req, res) => {
 	}
 });
 
-route.get('/', async (req,res)=> {
+route.get('/', async (req, res) => {
 	const keys = await getAllPrivateKeys();
-	res.status(20).json(keys)
-})
+	res.status(20).json(keys);
+});
 
 export const privateKeysRoutes = route;
