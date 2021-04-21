@@ -27,7 +27,7 @@ route.post('/deposit', authByToken, async (req, res) => {
 			message: { body: ['Please provide the transaction details'] },
 		});
 
-	const { senderAccount, amount, negativeMultiplier } = req.body;
+	const { senderAccount, amount } = req.body;
 
 	if (!senderAccount)
 		return res.status(400).json({
@@ -46,7 +46,6 @@ route.post('/deposit', authByToken, async (req, res) => {
 			senderAmount: amount,
 			senderAccountNumber: senderAccount,
 			transactionType: TransactionTypes.DEPOSIT,
-			negativeMultiplier,
 		});
 
 		res.status(200).json(transaction);
@@ -104,6 +103,7 @@ route.post('/transfer', authByToken, async (req, res) => {
 		senderAmount,
 		receiverAccount,
 		receiverAmount,
+		negativeMultiplier,
 	} = req.body;
 
 	if (!senderAccount)
@@ -135,6 +135,7 @@ route.post('/transfer', authByToken, async (req, res) => {
 			transactionType: TransactionTypes.TRANSFER,
 			receiverAccountNumber: receiverAccount,
 			receiverAmount: receiverAmount,
+			negativeMultiplier,
 		});
 
 		res.status(200).json(transaction);
