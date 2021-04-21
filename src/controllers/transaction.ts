@@ -10,6 +10,7 @@ interface TransactionData {
 	receiverAccountNumber?: string;
 	receiverAmount?: string;
 	transactionType?: string;
+	negativeMultiplier?: string;
 }
 
 export async function createTransaction(data: TransactionData) {
@@ -19,6 +20,7 @@ export async function createTransaction(data: TransactionData) {
 		receiverAccountNumber,
 		receiverAmount,
 		transactionType: type,
+		negativeMultiplier,
 	} = data;
 
 	const accountRepo = getRepository(Account);
@@ -49,10 +51,17 @@ export async function createTransaction(data: TransactionData) {
 
 		await repo.save(transaction);
 
-		sender.balance = await multiplyTwoCiphers(
-			BigInt(sender.balance),
-			BigInt(senderAmount)
-		).toString();
+		if (transactionType === TransactionTypes.DEPOSIT) {
+			sender.balance = await multiplyTwoCiphers(
+				BigInt(sender.balance),
+				BigInt(senderAmount)
+			).toString();
+		} else {
+			sender.balance = await multiplyTwoCiphers(
+				BigInt(sender.balance),
+				BigInt(negativeMultiplier)
+			).toString();
+		}
 
 		await accountRepo.save(sender);
 

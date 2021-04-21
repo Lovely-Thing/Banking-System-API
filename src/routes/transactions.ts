@@ -57,12 +57,14 @@ route.post('/deposit', authByToken, async (req, res) => {
 });
 
 route.post('/withdraw', authByToken, async (req, res) => {
+	console.log(req.body);
+
 	if (!req.body)
 		return res.status(400).json({
 			message: { body: ['Please provide the transaction details'] },
 		});
 
-	const { senderAccount, amount } = req.body;
+	const { senderAccount, amount, negativeMultiplier } = req.body;
 
 	if (!senderAccount)
 		return res.status(400).json({
@@ -81,6 +83,7 @@ route.post('/withdraw', authByToken, async (req, res) => {
 			senderAmount: amount,
 			senderAccountNumber: senderAccount,
 			transactionType: TransactionTypes.WITHDRAWAL,
+			negativeMultiplier,
 		});
 
 		res.status(200).json(transaction);
