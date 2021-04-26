@@ -108,5 +108,3 @@ export async function getTransactionsOfAccount(accountNumber: string) {
 		console.log(e);
 	}
 }
-
-// TODO: Write function to view all transactions of each customer

@@ -63,8 +63,6 @@ export async function createCustomer(data: CustomerSignUpData) {
 			hashedPassword,
 			email
 		);
-
-		console.log(customer);
 		await repo.save(customer);
 		await createAccount(customer);
 		return customer;

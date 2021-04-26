@@ -14,11 +14,11 @@ const route = Router();
 // POST / --> Create Customer
 route.post('/signup', async (req, res) => {
 	try {
-		// console.log(req.body);
 		const customer = await createCustomer(req.body);
 		return res.status(201).json(customer);
 	} catch (e) {
-		res.status(400).json({
+		console.log(e);
+		res.status(500).json({
 			message: { body: ['Could not create customer', e.message] },
 		});
 	}
