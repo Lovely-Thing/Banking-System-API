@@ -87,7 +87,8 @@ export async function getCustomerById(id: string) {
 export async function getCustomerByPhone(phone: string) {
 	const repo = await getRepository(Customer);
 	const customer = await repo.findOne({ phone });
-	if (!customer) throw new Error('No Customer with this Phone Number in the bank');
+	if (!customer)
+		throw new Error('No Customer with this Phone Number in the bank');
 	return customer;
 }
 

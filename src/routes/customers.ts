@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import {
 	createCustomer,
-	getCustomerById, getCustomerByPhone,
+	getCustomerById,
+	getCustomerByPhone,
 	getCustomers,
 	loginCustomer,
 	updateCustomer,

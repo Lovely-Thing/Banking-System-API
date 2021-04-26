@@ -50,7 +50,6 @@ export class Customer {
 		password: string,
 		email?: string
 	) {
-
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phone;
