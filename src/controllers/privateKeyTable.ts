@@ -31,6 +31,7 @@ export async function getPrivateKey(secretPassword: string) {
 	try {
 		const secret = `${process.env.PADDING_FOR_PRIVATEKEY_LEFT}${secretPassword}${process.env.PADDING_FOR_PRIVATEKEY_RIGHT}`;
 		const keys = await repo.find();
+
 		const matchPromises = keys.map(async key => {
 			return await matchPassword(secret, key.hashIdentifier);
 		});

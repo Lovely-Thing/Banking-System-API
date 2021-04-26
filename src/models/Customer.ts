@@ -11,9 +11,6 @@ export class Customer {
 	@Column('varchar', { nullable: false })
 	hashedPassword!: string;
 
-	@Column('varchar', { nullable: false, length: 12, unique: true })
-	aadhaar!: string;
-
 	@Column('varchar', { nullable: false })
 	firstName!: string;
 
@@ -46,7 +43,6 @@ export class Customer {
 	token?: string;
 
 	constructor(
-		aadhaar: string,
 		firstName: string,
 		lastName: string,
 		phone: string,
@@ -54,7 +50,7 @@ export class Customer {
 		password: string,
 		email?: string
 	) {
-		this.aadhaar = aadhaar;
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phone;

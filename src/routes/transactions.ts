@@ -138,7 +138,8 @@ route.post('/transfer', authByToken, async (req, res) => {
 			negativeMultiplier,
 		});
 
-		res.status(200).json(transaction);
+		// res.status(200).json(transaction);
+		res.status(200).json({});
 	} catch (e) {
 		return res.status(500).json({
 			message: { body: ['Transaction Unsuccessful'] },

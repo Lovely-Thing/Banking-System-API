@@ -4,10 +4,8 @@ import { hashPassword, matchPassword } from '../utils/hashPassword';
 import { signToken } from '../utils/jwt';
 import sanitizeLogin from '../utils/sanitization';
 import { createAccount } from './account';
-import { Account } from '../models/Account';
 
 interface CustomerSignUpData {
-	aadhaar: string;
 	firstName: string;
 	lastName: string;
 	phone: string;
@@ -36,9 +34,8 @@ interface CustomerLoginData {
 }
 
 export async function createCustomer(data: CustomerSignUpData) {
-	const { firstName, lastName, email, phone, age, aadhaar, password } = data;
+	const { firstName, lastName, email, phone, age, password } = data;
 
-	if (!aadhaar) throw new Error('Please give aadhaar number of the customer');
 	if (!firstName) throw new Error('Please Enter First Name of the Customer');
 	if (!lastName) throw new Error('Please Enter Last Name of the Customer');
 	if (!phone) throw new Error('Please Enter Phone Number of the Customer');
@@ -51,14 +48,13 @@ export async function createCustomer(data: CustomerSignUpData) {
 
 	const repo = getRepository(Customer);
 
-	const existingCustomer = await repo.findOne({ aadhaar });
+	const existingCustomer = await repo.findOne({ phone });
 
 	if (existingCustomer)
 		throw new Error('Customer with the details already exists');
 
 	try {
 		const customer = new Customer(
-			aadhaar,
 			firstName,
 			lastName,
 			phone,
@@ -88,10 +84,10 @@ export async function getCustomerById(id: string) {
 	return customer;
 }
 
-export async function getCustomerByAadhaar(aadhaar: string) {
+export async function getCustomerByPhone(phone: string) {
 	const repo = await getRepository(Customer);
-	const customer = await repo.findOne({ aadhaar });
-	if (!customer) throw new Error('No Customer with this Aadhaar in the bank');
+	const customer = await repo.findOne({ phone });
+	if (!customer) throw new Error('No Customer with this Phone Number in the bank');
 	return customer;
 }
 

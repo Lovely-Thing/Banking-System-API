@@ -23,6 +23,7 @@ export async function createTransaction(data: TransactionData) {
 		negativeMultiplier,
 	} = data;
 
+	console.log(data);
 	const accountRepo = getRepository(Account);
 
 	const sender = await accountRepo.findOne(senderAccountNumber);
@@ -52,12 +53,12 @@ export async function createTransaction(data: TransactionData) {
 		await repo.save(transaction);
 
 		if (transactionType === TransactionTypes.DEPOSIT) {
-			sender.balance = await multiplyTwoCiphers(
+			sender.balance = multiplyTwoCiphers(
 				BigInt(sender.balance),
 				BigInt(senderAmount)
 			).toString();
 		} else {
-			sender.balance = await multiplyTwoCiphers(
+			sender.balance = multiplyTwoCiphers(
 				BigInt(sender.balance),
 				BigInt(negativeMultiplier)
 			).toString();
@@ -66,7 +67,7 @@ export async function createTransaction(data: TransactionData) {
 		await accountRepo.save(sender);
 
 		if (receiver) {
-			receiver.balance = await multiplyTwoCiphers(
+			receiver.balance = multiplyTwoCiphers(
 				BigInt(receiver.balance),
 				BigInt(receiverAmount)
 			).toString();

@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import {
 	createCustomer,
-	getCustomerByAadhaar,
-	getCustomerById,
+	getCustomerById, getCustomerByPhone,
 	getCustomers,
 	loginCustomer,
 	updateCustomer,
@@ -63,9 +62,9 @@ route.get('/:id', authByToken, async (req, res) => {
 	}
 });
 
-route.get('/aadhaar/:number', async (req, res) => {
+route.get('/phone/:number', async (req, res) => {
 	try {
-		const customer = await getCustomerByAadhaar(req.params.number as string);
+		const customer = await getCustomerByPhone(req.params.number as string);
 		res.status(200).json(customer);
 	} catch (e) {
 		res.status(404).json({
