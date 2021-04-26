@@ -42,7 +42,8 @@ export async function createCustomer(data: CustomerSignUpData) {
 	if (!age) throw new Error('Please Enter the age of the Customer');
 	if (!password) throw new Error('Please Enter the password');
 
-	if (+age < 18) throw new Error('Customer should be above 18 years old');
+	if (+age < 18 && +age > 65)
+		throw new Error('Customer should be above 18 years old');
 
 	const hashedPassword = await hashPassword(password);
 
@@ -62,6 +63,8 @@ export async function createCustomer(data: CustomerSignUpData) {
 			hashedPassword,
 			email
 		);
+
+		console.log(customer);
 		await repo.save(customer);
 		await createAccount(customer);
 		return customer;

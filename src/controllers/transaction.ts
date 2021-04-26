@@ -100,7 +100,7 @@ export async function getTransactionsOfAccount(accountNumber: string) {
 				{ senderAccount: accountNumber },
 				{ receiverAccount: accountNumber },
 			],
-			order: { date: 1 },
+			order: { date: -1 },
 			relations: ['receiverAccount', 'senderAccount'],
 			take: 15,
 		});
