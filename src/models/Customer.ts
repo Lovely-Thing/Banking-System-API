@@ -1,11 +1,18 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	Entity,
+	OneToMany,
+	PrimaryColumn,
+	PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Address } from './Address';
 import { IsDate, IsEmail, IsInt, IsPhoneNumber, Min } from 'class-validator';
 import { Account } from './Account';
+import Randoma from 'randoma';
 
 @Entity()
 export class Customer {
-	@PrimaryGeneratedColumn('uuid')
+	@PrimaryColumn()
 	id!: string;
 
 	@Column('varchar', { nullable: false })
@@ -50,6 +57,7 @@ export class Customer {
 		password: string,
 		email?: string
 	) {
+		this.id = new Randoma({ seed: 5 }).integer().toString();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phone = phone;

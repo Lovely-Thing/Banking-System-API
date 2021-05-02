@@ -5,10 +5,12 @@ import {
 	ManyToOne,
 	OneToMany,
 	CreateDateColumn,
+	PrimaryColumn,
 } from 'typeorm';
 import { Customer } from './Customer';
 import { PublicKey } from '../utils/security';
 import { Transaction } from './Transaction';
+import Randoma from 'randoma';
 
 interface StorePublicKey {
 	n: string;
@@ -24,7 +26,7 @@ export enum AccountTypes {
 
 @Entity()
 export class Account {
-	@PrimaryGeneratedColumn('uuid')
+	@PrimaryColumn()
 	accountNumber!: string;
 
 	@Column({
@@ -50,6 +52,7 @@ export class Account {
 	transactions!: Transaction[];
 
 	constructor(customer: Customer, publicKey: PublicKey, balance: bigint) {
+		this.accountNumber = new Randoma({ seed: 10 }).integer().toString();
 		this.customer = customer;
 		this.publicKey = {
 			n: publicKey?.n.toString() as string,

@@ -38,7 +38,7 @@ async function start() {
 		ssl: { rejectUnauthorized: !url }, // Only for Remote DB
 		entities: [Customer, Account, PrivateKeyTable, Transaction],
 		logger: 'simple-console',
-		synchronize: true, // Only for Development
+		// synchronize: true, // Only for Development
 		logging: true,
 		// dropSchema: true, // Only for Development
 	});
