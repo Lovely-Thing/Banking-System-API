@@ -18,7 +18,7 @@ export async function createAccount(customer: Customer) {
 		await createPrivateKeyRow(
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
-			account[process.env.SECRET_PROP],
+			account.accountNumber,
 			privateKey
 		);
 
@@ -30,7 +30,9 @@ export async function createAccount(customer: Customer) {
 
 export async function getAccountByNumber(accountNumber: string) {
 	const repo = getRepository(Account);
-	const account = await repo.findOne(accountNumber);
+	const account = await repo.findOne(accountNumber, {
+		relations: ['customer'],
+	});
 	if (!account) throw new Error('Account not found');
 	return account;
 }
