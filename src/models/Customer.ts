@@ -6,7 +6,7 @@ import randomize from 'randomatic';
 
 @Entity()
 export class Customer {
-	@PrimaryColumn()
+	@PrimaryColumn('varchar')
 	id!: string;
 
 	@Column('varchar', { nullable: false })

@@ -1,11 +1,12 @@
 import {
 	Entity,
-	PrimaryGeneratedColumn,
 	Column,
 	CreateDateColumn,
 	ManyToOne,
+	PrimaryColumn,
 } from 'typeorm';
 import { Account } from './Account';
+import randomize from 'randomatic';
 
 export enum TransactionTypes {
 	TRANSFER = 'transfer',
@@ -15,7 +16,7 @@ export enum TransactionTypes {
 
 @Entity()
 export class Transaction {
-	@PrimaryGeneratedColumn('uuid')
+	@PrimaryColumn('varchar')
 	transactionId!: string;
 
 	@Column('varchar')
@@ -47,6 +48,7 @@ export class Transaction {
 		receiverAccount?: Account,
 		receiverAmount?: string
 	) {
+		this.transactionId = randomize('0a', 16);
 		this.senderAccount = senderAccount;
 		this.senderEncryptedAmount = senderAmount;
 		this.transactionType = transactionType;

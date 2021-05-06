@@ -25,7 +25,7 @@ export enum AccountTypes {
 
 @Entity()
 export class Account {
-	@PrimaryColumn()
+	@PrimaryColumn('varchar')
 	accountNumber!: string;
 
 	@Column({
