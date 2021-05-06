@@ -10,6 +10,7 @@ import { Customer } from './Customer';
 import { PublicKey } from '../utils/security';
 import { Transaction } from './Transaction';
 import Randoma from 'randoma';
+import randomize from 'randomatic';
 
 interface StorePublicKey {
 	n: string;
@@ -51,9 +52,7 @@ export class Account {
 	transactions!: Transaction[];
 
 	constructor(customer: Customer, publicKey: PublicKey, balance: bigint) {
-		this.accountNumber = new Randoma({ seed: 20 })
-			.integerInRange(1000000000, 9999999999)
-			.toString();
+		this.accountNumber = randomize('0', 12);
 		this.customer = customer;
 		this.publicKey = {
 			n: publicKey?.n.toString() as string,
