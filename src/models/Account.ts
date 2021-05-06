@@ -9,7 +9,6 @@ import {
 import { Customer } from './Customer';
 import { PublicKey } from '../utils/security';
 import { Transaction } from './Transaction';
-import Randoma from 'randoma';
 import randomize from 'randomatic';
 
 interface StorePublicKey {
