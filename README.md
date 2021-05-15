@@ -10,7 +10,9 @@ The Front End for this project can be found at [Banking System Front](https://gi
 3. [PostgreSQL v13.1](https://www.postgresql.org/)
 4. [TypeScript](https://www.typescriptlang.org/)
 5. [TypeORM](https://typeorm.io/)
-6. [Heroku](https://devcenter.heroku.com/)
+6. [Docker](https://docs.docker.com/)
+7. [Heroku](https://devcenter.heroku.com/)
+
 
 ## Setting Up the Project Locally
 
