@@ -23,7 +23,6 @@ export async function createTransaction(data: TransactionData) {
 		negativeMultiplier,
 	} = data;
 
-	console.log(data);
 	const accountRepo = getRepository(Account);
 
 	const sender = await accountRepo.findOne(senderAccountNumber);
@@ -91,7 +90,6 @@ export async function getTransactions() {
 }
 
 export async function getTransactionsOfAccount(accountNumber: string) {
-	console.log(accountNumber);
 
 	try {
 		const repo = getRepository(Transaction);

@@ -22,6 +22,8 @@ route.get('/', async (req, res) => {
 });
 
 route.post('/deposit', authByToken, async (req, res) => {
+	console.log(req.body)
+
 	if (!req.body)
 		return res.status(400).json({
 			message: { body: ['Please provide the transaction details'] },
@@ -57,6 +59,8 @@ route.post('/deposit', authByToken, async (req, res) => {
 });
 
 route.post('/withdraw', authByToken, async (req, res) => {
+	console.log(req.body)
+
 	if (!req.body)
 		return res.status(400).json({
 			message: { body: ['Please provide the transaction details'] },
@@ -73,8 +77,6 @@ route.post('/withdraw', authByToken, async (req, res) => {
 		return res.status(400).json({
 			message: { body: ['Please provide the amount in encrypted form'] },
 		});
-
-	// TODO: Add check to match account owner and logged in customer
 
 	try {
 		const transaction = await createTransaction({
@@ -93,6 +95,7 @@ route.post('/withdraw', authByToken, async (req, res) => {
 });
 
 route.post('/transfer', authByToken, async (req, res) => {
+
 	if (!req.body)
 		return res.status(400).json({
 			message: { body: ['Please provide the transaction details'] },
@@ -126,8 +129,6 @@ route.post('/transfer', authByToken, async (req, res) => {
 			message: { body: ['Please provide the amount in encrypted form'] },
 		});
 
-	// TODO: Add check to match account owner and logged in customer
-
 	try {
 		const transaction = await createTransaction({
 			senderAmount: senderAmount,
@@ -138,8 +139,7 @@ route.post('/transfer', authByToken, async (req, res) => {
 			negativeMultiplier,
 		});
 
-		// res.status(200).json(transaction);
-		res.status(200).json({});
+		res.status(200).json(transaction);
 	} catch (e) {
 		return res.status(500).json({
 			message: { body: ['Transaction Unsuccessful'] },

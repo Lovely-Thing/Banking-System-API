@@ -1,4 +1,4 @@
-# Banking System Using Homomorphic Encryption
+# Banking System Using Homomorphic Encryption (API)
 
 This is a project which demonstrates Homomorphic Encryption using Paillier Encryption.
 
