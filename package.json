@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "tsc",
+		"post-install": "tsc",
 		"start": "node dist/app.js",
 		"dev": "yarn run build && yarn start",
 		"clean": "npx rimraf node_modules dist yarn.lock package-lock.json",
