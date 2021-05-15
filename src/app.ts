@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-	res.send('Hey World!');
+	res.send(`<p>This is a API demonstrating Homomorphic Encryption using Paillier's Encryption`);
 });
 
 app.use('/api/customers', customersRoutes);
