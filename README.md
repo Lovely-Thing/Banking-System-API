@@ -46,11 +46,4 @@ The Front End for this project can be found at [Banking System Front](https://gi
   
   ```
   yarn start
-  ```
-## Author
-
-- [Aditya Manikanth Rao](https://github.com/AdityaManikanth2810)
-
-### Note 
-  This project uses a remote PSQL database which is hosted on Heroku.
 
